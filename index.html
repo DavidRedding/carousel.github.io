@@ -66,26 +66,31 @@
       }
 
       .logos-slide div {
+      }
+
+      .carousel-item {
         display: inline-block; /* Makes divs behave like inline elements */
-        height: 50px; /* Match the img height */
-        width: 90px; /* Adjust to desired width or based on aspect ratio */
         margin: 0 40px; /* Match the img margin */
         background-size: contain; /* Ensures the image fits within the div */
         background-repeat: no-repeat; /* Avoids tiling */
-        background-position: center; /* Centers the image */
+        background-position: center;
+        cursor: pointer;
+        height: 384px;
+        width: 216px;
+        border: 1px solid black;
       }
     </style>
   </head>
   <body>
     <div class="logos">
       <div class="logos-slide">
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/3m.svg')"></div>
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/barstool-store.svg')"></div>
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/budweiser.svg')"></div>
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/buzzfeed.svg')"></div>
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/forbes.svg')"></div>
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/menshealth.svg')"></div>
-        <div style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/mrbeast.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/3m.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/barstool-store.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/budweiser.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/buzzfeed.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/forbes.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/menshealth.svg')"></div>
+        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/mrbeast.svg')"></div>
       </div>
     </div>
 
