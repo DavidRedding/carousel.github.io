@@ -127,6 +127,22 @@
           console.log(`clicked ${item.style} dfd`);
         });
       });
+
+      const logosSlide = document.querySelector('.logos-slide');
+
+      // Detect touch or scroll interaction
+      let userInteracted = false;
+
+      const stopAnimation = () => {
+        if (!userInteracted) {
+          userInteracted = true; // Prevent multiple triggers
+          logosSlide.style.animation = 'none'; // Slow down the animation
+        }
+      };
+
+      // Add event listeners for mobile touch and scroll events
+      document.querySelector('.logos').addEventListener('touchstart', stopAnimation);
+      document.querySelector('.logos').addEventListener('scroll', stopAnimation);
     </script>
   </body>
 </html>
