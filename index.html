@@ -77,7 +77,29 @@
         cursor: pointer;
         height: 384px;
         width: 216px;
-        border: 1px solid black;
+        border: 3px solid black;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .logos {
+          overflow-x: auto; /* Enable horizontal scrolling */
+          display: flex; /* Use flexbox to align items */
+          scroll-snap-type: x mandatory; /* Enable horizontal scroll snap */
+          -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+          scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
+        .logos-slide {
+          display: flex; /* Align carousel items horizontally */
+          animation: none !important; /* Disable animation on mobile */
+        }
+
+        .carousel-item {
+          scroll-snap-align: center; /* Snap items to center */
+          flex: 0 0 auto; /* Prevent shrinking */
+          margin: 0 10px; /* Adjust spacing for smaller screens */
+        }
       }
     </style>
   </head>
