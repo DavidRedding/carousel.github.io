@@ -57,7 +57,7 @@
       }
 
       .logos:hover .logos-slide {
-        background-color: yellow;
+        animation-play-state: paused;
       }
 
       .logos-slide {
@@ -267,12 +267,12 @@
     </div>
 
     <script>
-      const logosContainer = document.querySelector('.logos-wrapper'); // Scrollable wrapper
+      const logosWrapper = document.querySelector('.logos-wrapper'); // Scrollable wrapper
       const logosSlide = document.querySelector('.logos-slide');
 
       // Clone the logos-slide and append it to the wrapper for infinite scrolling
       const logosSlideClone = logosSlide.cloneNode(true);
-      logosContainer.appendChild(logosSlideClone);
+      logosWrapper.appendChild(logosSlideClone);
 
       // Add event listeners to each carousel item
       const carouselItems = document.querySelectorAll('.carousel-item');
@@ -299,8 +299,8 @@
       };
 
       // Add event listeners for touch and scroll events
-      logosContainer.addEventListener('touchstart', stopAnimation);
-      logosContainer.addEventListener('scroll', stopAnimation);
+      logosWrapper.addEventListener('touchstart', stopAnimation);
+      logosWrapper.addEventListener('scroll', stopAnimation);
     </script>
   </body>
 </html>
