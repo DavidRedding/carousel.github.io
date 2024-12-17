@@ -74,8 +74,8 @@
         background-repeat: no-repeat; /* Avoids tiling */
         background-position: center;
         cursor: pointer;
-        height: 384px;
-        width: 216px;
+        height: 366px;
+        width: 240px;
         border-radius: 20px;
         position: relative;
 
@@ -228,7 +228,6 @@
         height: 100%;
         border: none;
       }
-
       @media (max-width: 768px) {
         .carousel-container {
           overflow: hidden; /* Hide overflow outside container */
@@ -283,6 +282,56 @@
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
+        }
+
+        .carousel-arrow {
+          display: none; /* Hide the arrows */
+        }
+      }
+
+      /* overwrite */
+      @media (max-width: 768px) {
+        .carousel-container {
+          overflow-x: auto; /* Enable horizontal scrolling */
+          scroll-snap-type: x mandatory; /* Enable snap scrolling */
+          -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
+          scroll-behavior: smooth; /* Smooth scroll */
+          position: relative; /* Retain positioning */
+        }
+
+        .carousel-items-wrapper {
+          display: flex;
+          gap: 10px; /* Spacing between items */
+          scroll-snap-type: x mandatory; /* Ensure snapping */
+          overflow-x: auto;
+        }
+
+        .carousel-items-slide {
+          display: flex; /* Horizontal layout for items */
+          gap: 2vw;
+        }
+
+        .carousel-item {
+          flex: 0 0 auto; /* Prevent shrinking */
+          scroll-snap-align: center; /* Snap items to center */
+          width: 240px; /* Adjust width for smaller screens */
+          height: 366px; /* Reduce height for mobile */
+          margin: 0 auto; /* Center alignment */
+          border-radius: 15px; /* Smooth corners */
+          background-size: cover; /* Cover image */
+          background-position: center;
+          box-shadow: none; /* Optional: Remove shadow */
+        }
+
+        /* Hide arrows on mobile */
+        .carousel-arrow {
+          display: none;
+        }
+
+        /* Optional: Remove gradients */
+        .carousel-container:before,
+        .carousel-container:after {
+          display: none;
         }
       }
     </style>
@@ -434,81 +483,83 @@
     </div>
 
     <script>
-      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
-      const carouselItemsSlide = document.querySelector('.carousel-items-slide');
-      const arrowLeft = document.getElementById('arrowLeft');
-      const arrowRight = document.getElementById('arrowRight');
+      if (window.innerWidth > 768) {
+        const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
+        const carouselItemsSlide = document.querySelector('.carousel-items-slide');
+        const arrowLeft = document.getElementById('arrowLeft');
+        const arrowRight = document.getElementById('arrowRight');
 
-      // Clone the slide for infinite scrolling
-      const clone = carouselItemsSlide.cloneNode(true);
-      carouselItemsWrapper.appendChild(clone);
+        // Clone the slide for infinite scrolling
+        const clone = carouselItemsSlide.cloneNode(true);
+        carouselItemsWrapper.appendChild(clone);
 
-      let currentPosition = 0;
-      const itemWidth = 216 + 14; // Width of one carousel item + margin
-      const totalWidth = carouselItemsSlide.offsetWidth; // Total width of the original slide
-      let animationId;
-      let animationPaused = false;
+        let currentPosition = 0;
+        const itemWidth = 216 + 14; // Width of one carousel item + margin
+        const totalWidth = carouselItemsSlide.offsetWidth; // Total width of the original slide
+        let animationId;
+        let animationPaused = false;
 
-      let speed = 0.9; // Default speed
-      const normalSpeed = 0.9;
-      const holdSpeed = 3; // Faster speed when holding
+        let speed = 0.9; // Default speed
+        const normalSpeed = 0.9;
+        const holdSpeed = 3; // Faster speed when holding
 
-      // Function to move the carousel
-      const moveCarousel = () => {
-        if (!animationPaused) {
-          currentPosition -= speed; // Use the dynamic speed
-          if (Math.abs(currentPosition) >= totalWidth) {
-            currentPosition = 0; // Reset when original slide ends
+        // Function to move the carousel
+        const moveCarousel = () => {
+          if (!animationPaused) {
+            currentPosition -= speed; // Use the dynamic speed
+            if (Math.abs(currentPosition) >= totalWidth) {
+              currentPosition = 0; // Reset when original slide ends
+            }
+            carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
           }
-          carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
-        }
-        animationId = requestAnimationFrame(moveCarousel);
-      };
+          animationId = requestAnimationFrame(moveCarousel);
+        };
 
-      // Start animation
-      const startAnimation = () => {
-        animationPaused = false;
-        cancelAnimationFrame(animationId);
-        moveCarousel();
-      };
+        // Start animation
+        const startAnimation = () => {
+          animationPaused = false;
+          cancelAnimationFrame(animationId);
+          moveCarousel();
+        };
 
-      // Pause animation
-      const stopAnimation = () => {
-        animationPaused = true;
-        cancelAnimationFrame(animationId);
-      };
+        // Pause animation
+        const stopAnimation = () => {
+          animationPaused = true;
+          cancelAnimationFrame(animationId);
+        };
 
-      // Speed up on hold
-      const speedUp = () => {
-        speed = holdSpeed;
-      };
+        // Speed up on hold
+        const speedUp = () => {
+          speed = holdSpeed;
+        };
 
-      // Reset speed on release
-      const resetSpeed = () => {
-        speed = normalSpeed;
-      };
+        // Reset speed on release
+        const resetSpeed = () => {
+          speed = normalSpeed;
+        };
 
-      // Arrow Left
-      arrowLeft.addEventListener('mousedown', () => {
-        speedUp();
-        speed = -holdSpeed; // Reverse direction
-      });
-      arrowLeft.addEventListener('mouseup', resetSpeed);
-      arrowLeft.addEventListener('mouseleave', resetSpeed);
+        // Arrow Left
+        arrowLeft.addEventListener('mousedown', () => {
+          speedUp();
+          speed = -holdSpeed; // Reverse direction
+        });
+        arrowLeft.addEventListener('mouseup', resetSpeed);
+        arrowLeft.addEventListener('mouseleave', resetSpeed);
 
-      // Arrow Right
-      arrowRight.addEventListener('mousedown', () => {
-        speedUp();
-      });
-      arrowRight.addEventListener('mouseup', resetSpeed);
-      arrowRight.addEventListener('mouseleave', resetSpeed);
+        // Arrow Right
+        arrowRight.addEventListener('mousedown', () => {
+          speedUp();
+        });
+        arrowRight.addEventListener('mouseup', resetSpeed);
+        arrowRight.addEventListener('mouseleave', resetSpeed);
 
-      // Event listeners to pause/resume animation
-      carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
-      carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
+        // Event listeners to pause/resume animation
+        carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
+        carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
 
-      // Start the infinite scroll on page load
-      startAnimation();
+        // Start the infinite scroll on page load
+        startAnimation();
+      }
     </script>
     <!-- <script>
       const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
