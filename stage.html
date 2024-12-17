@@ -228,68 +228,7 @@
         height: 100%;
         border: none;
       }
-      @media (max-width: 768px) {
-        .carousel-container {
-          overflow: hidden; /* Hide overflow outside container */
-          position: relative; /* Keep pseudo-elements fixed */
-        }
 
-        .carousel-items-wrapper {
-          overflow-x: auto; /* Enable horizontal scrolling */
-          display: flex; /* Flexbox layout */
-          scroll-snap-type: x mandatory; /* Smooth snap scrolling */
-          -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
-          scroll-behavior: smooth; /* Smooth scroll behavior */
-        }
-
-        .carousel-container:before,
-        .carousel-container:after {
-          position: absolute; /* Fixed inside the container */
-          top: 0;
-          width: 50px; /* Smaller gradient for mobile */
-          height: 100%;
-          content: '';
-          z-index: 2;
-          pointer-events: none; /* Allow interaction with carousel */
-        }
-
-        .carousel-container:before {
-          left: 0;
-          background: linear-gradient(to left, rgba(24, 28, 31, 0), #181c1f);
-        }
-
-        .carousel-container:after {
-          right: 0;
-          background: linear-gradient(to right, rgba(24, 28, 31, 0), #181c1f);
-        }
-
-        .carousel-items-slide {
-          display: flex; /* Flexbox layout for items */
-        }
-
-        .carousel-item {
-          flex: 0 0 auto; /* Prevent shrinking */
-          scroll-snap-align: center; /* Snap to center */
-          margin: 0 5px; /* Adjust spacing */
-          height: 274px; /* Adjust for smaller screens */
-          width: 180px; /* Adjust for smaller screens */
-          border: 2px solid #181c1f; /* Adjust border size */
-          border-radius: 20px;
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-          font-size: 18px;
-          text-align: center;
-
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-        }
-
-        .carousel-arrow {
-          display: none; /* Hide the arrows */
-        }
-      }
-
-      /* overwrite */
       @media (max-width: 768px) {
         .carousel-container {
           overflow-x: auto; /* Enable horizontal scrolling */
@@ -304,6 +243,8 @@
           gap: 10px; /* Spacing between items */
           scroll-snap-type: x mandatory; /* Ensure snapping */
           overflow-x: auto;
+          -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+          scroll-behavior: smooth; /* Smooth scroll behavior */
         }
 
         .carousel-items-slide {
@@ -317,10 +258,14 @@
           width: 240px; /* Adjust width for smaller screens */
           height: 366px; /* Reduce height for mobile */
           margin: 0 auto; /* Center alignment */
-          border-radius: 15px; /* Smooth corners */
+          border-radius: 20px; /* Smooth corners */
           background-size: cover; /* Cover image */
           background-position: center;
           box-shadow: none; /* Optional: Remove shadow */
+
+          font-size: 18px;
+          text-align: center;
+          /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); */
         }
 
         /* Hide arrows on mobile */
@@ -561,140 +506,8 @@
         startAnimation();
       }
     </script>
+
     <!-- <script>
-      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
-      const carouselItemsSlide = document.querySelector('.carousel-items-slide');
-      const arrowLeft = document.getElementById('arrowLeft');
-      const arrowRight = document.getElementById('arrowRight');
-
-      // Clone the slide for infinite scrolling
-      const clone = carouselItemsSlide.cloneNode(true);
-      carouselItemsWrapper.appendChild(clone);
-
-      let currentPosition = 0;
-      const itemWidth = 216 + 14; // Width of one carousel item + margin
-      const totalWidth = carouselItemsSlide.offsetWidth; // Total width of the original slide
-      let animationId;
-      let animationPaused = false;
-
-      let speed = 0.6; // Default speed
-      const holdSpeed = 2; // Speed when holding the button
-      let holdInterval;
-
-      // Function to move the carousel
-      const moveCarousel = () => {
-        if (!animationPaused) {
-          currentPosition -= speed; // Adjust speed dynamically
-          if (Math.abs(currentPosition) >= totalWidth) {
-            currentPosition = 0; // Reset when original slide ends
-          }
-          carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
-        }
-        animationId = requestAnimationFrame(moveCarousel);
-      };
-
-      // Start animation
-      const startAnimation = () => {
-        animationPaused = false;
-        cancelAnimationFrame(animationId);
-        moveCarousel();
-      };
-
-      // Pause animation
-      const stopAnimation = () => {
-        animationPaused = true;
-        cancelAnimationFrame(animationId);
-      };
-
-      // Manual navigation
-      const holdScroll = (direction) => {
-        holdInterval = setInterval(() => {
-          stopAnimation();
-          currentPosition += (direction * itemWidth) / 10; // Adjust hold scroll increment
-          if (currentPosition > 0) currentPosition = -totalWidth; // Wrap to the end
-          if (Math.abs(currentPosition) >= totalWidth) currentPosition = 0; // Wrap to the start
-          carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
-        }, 10);
-      };
-
-      const stopHoldScroll = () => clearInterval(holdInterval);
-
-      // Speed control on hold
-      arrowLeft.addEventListener('mousedown', () => {
-        speed = holdSpeed; // Increase speed
-        holdScroll(1); // Scroll left
-      });
-      arrowLeft.addEventListener('mouseup', () => {
-        stopHoldScroll();
-        speed = 0.6; // Reset speed
-      });
-      arrowLeft.addEventListener('mouseleave', () => {
-        stopHoldScroll();
-        speed = 0.6;
-      });
-
-      arrowRight.addEventListener('mousedown', () => {
-        speed = holdSpeed; // Increase speed
-        holdScroll(-1); // Scroll right
-      });
-      arrowRight.addEventListener('mouseup', () => {
-        stopHoldScroll();
-        speed = 0.6; // Reset speed
-      });
-      arrowRight.addEventListener('mouseleave', () => {
-        stopHoldScroll();
-        speed = 0.6;
-      });
-
-      // Event listeners to pause/resume animation
-      carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
-      carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
-
-      // Start the infinite scroll on page load
-      startAnimation();
-    </script> -->
-    <!-- <script>
-      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper'); // Scrollable wrapper
-      const carouselItemsSlides = document.querySelectorAll('.carousel-items-slide');
-      const arrowLeft = document.getElementById('arrowLeft');
-      const arrowRight = document.getElementById('arrowRight');
-
-      let currentPosition = 0;
-      const itemWidth = 216 + 14; // Item width + margin (adjust as needed)
-      const totalItems = document.querySelectorAll('.carousel-item').length;
-      const maxScroll = itemWidth * totalItems;
-
-      let animationStopped = false;
-
-      // Function to stop all animations
-      const stopAnimation = () => {
-        if (!animationStopped) {
-          carouselItemsSlides.forEach((slide) => {
-            slide.style.animation = 'none'; // Stop the animation on all slides
-          });
-          animationStopped = true;
-        }
-      };
-
-      // Manual Scroll Left
-      arrowLeft.addEventListener('click', () => {
-        stopAnimation();
-        currentPosition -= itemWidth;
-        if (currentPosition < 0) currentPosition = maxScroll - itemWidth; // Wrap to end
-        carouselItemsSlides.forEach((slide) => {
-          slide.style.transform = `translateX(-${currentPosition}px)`;
-        });
-      });
-
-      // Manual Scroll Right
-      arrowRight.addEventListener('click', () => {
-        stopAnimation();
-        currentPosition += itemWidth;
-        if (currentPosition >= maxScroll) currentPosition = 0; // Wrap to start
-        carouselItemsSlides.forEach((slide) => {
-          slide.style.transform = `translateX(-${currentPosition}px)`;
-        });
-      });
 
       const videoModal = document.getElementById('videoModal');
       const closeModal = document.getElementById('closeModal');
