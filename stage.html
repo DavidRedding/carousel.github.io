@@ -58,13 +58,13 @@
         background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
       }
 
-      .logos:hover .logos-slide {
+      .logos:hover .carousel-items-slide {
         animation-play-state: paused;
       }
 
-      .logos-slide {
+      .carousel-items-slide {
         display: inline-block;
-        animation: 30s slide infinite linear;
+        animation: 20s slide infinite linear;
       }
 
       .carousel-item {
@@ -159,7 +159,7 @@
           position: relative; /* Keep pseudo-elements fixed */
         }
 
-        .logos-wrapper {
+        .carousel-items-wrapper {
           overflow-x: auto; /* Enable horizontal scrolling */
           display: flex; /* Flexbox layout */
           scroll-snap-type: x mandatory; /* Smooth snap scrolling */
@@ -188,7 +188,7 @@
           background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
         }
 
-        .logos-slide {
+        .carousel-items-slide {
           display: flex; /* Flexbox layout for items */
         }
 
@@ -210,8 +210,8 @@
 
   <body>
     <div class="logos">
-      <div class="logos-wrapper">
-        <div class="logos-slide">
+      <div class="carousel-items-wrapper">
+        <div class="carousel-items-slide">
           <!-- Erik -->
           <div class="carousel-item" data-video-url="https://www.youtube.com/embed/6Gjo3vaVQcQ?si=Obzjx626s2mSTC5e" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/3m.svg')">
             <div class="item-content">
@@ -350,26 +350,26 @@
     </div>
 
     <script>
-      const logosWrapper = document.querySelector('.logos-wrapper'); // Scrollable wrapper
-      const logosSlide = document.querySelector('.logos-slide');
+      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper'); // Scrollable wrapper
+      const carouselItemsSlide = document.querySelector('.carousel-items-slide');
 
       const videoModal = document.getElementById('videoModal');
       const closeModal = document.getElementById('closeModal');
       const videoIframe = document.getElementById('videoIframe');
 
-      // Clone the logos-slide and append it to the wrapper for infinite scrolling
-      const logosSlideClone = logosSlide.cloneNode(true);
-      logosWrapper.appendChild(logosSlideClone);
+      // Clone the carousel-items-slide and append it to the wrapper for infinite scrolling
+      const carouselItemsSlideClone = carouselItemsSlide.cloneNode(true);
+      carouselItemsWrapper.appendChild(carouselItemsSlideClone);
+
+      const carouselItems = document.querySelectorAll('.carousel-item');
 
       // Add event listeners to each carousel item
-      const carouselItems = document.querySelectorAll('.carousel-item');
       carouselItems.forEach((item) => {
         item.addEventListener('click', () => {
           item.style.border = '10px solid orange';
           console.log(`clicked: ${item.style.backgroundImage}`);
         });
       });
-
       // Detect user interaction and stop the animation after 2 seconds
       let userInteracted = false;
 
@@ -378,16 +378,18 @@
           userInteracted = true;
 
           setTimeout(() => {
-            logosSlide.style.animation = 'none';
-            logosSlideClone.style.animation = 'none';
+            carouselItemsSlide.style.animation = 'none';
+            carouselItemsSlideClone.style.animation = 'none';
             console.log('Animation stopped after user interaction.');
           }, 2000); // 2 seconds delay after interaction
         }
       };
 
       // Add event listeners for touch and scroll events
-      logosWrapper.addEventListener('touchstart', stopAnimation);
-      logosWrapper.addEventListener('scroll', stopAnimation);
+      carouselItemsWrapper.addEventListener('touchstart', stopAnimation);
+      carouselItemsWrapper.addEventListener('scroll', stopAnimation);
+
+      // ########## VIDEO FUNCTIONALITY BELOW ##########
 
       // Function to close the modal
       function closeVideoModal() {
@@ -396,8 +398,9 @@
       }
 
       // Event listener for carousel items
-      items.forEach((item) => {
+      carouselItems.forEach((item) => {
         item.addEventListener('click', () => {
+          console.log('clicked');
           const videoUrl = item.getAttribute('data-video-url'); // Get video URL
           if (videoUrl) {
             videoIframe.src = `${videoUrl}?autoplay=1`; // Set iframe src with autoplay
