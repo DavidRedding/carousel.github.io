@@ -59,7 +59,7 @@
       }
 
       .carousel-container:hover .carousel-items-slide {
-        animation-play-state: paused;
+        /* animation-play-state: paused; */
       }
 
       .carousel-items-slide {
@@ -449,10 +449,91 @@
       let animationId;
       let animationPaused = false;
 
+      let speed = 0.9; // Default speed
+      const normalSpeed = 0.9;
+      const holdSpeed = 3; // Faster speed when holding
+
       // Function to move the carousel
       const moveCarousel = () => {
         if (!animationPaused) {
-          currentPosition -= 0.6; // Move left pixel by pixel
+          currentPosition -= speed; // Use the dynamic speed
+          if (Math.abs(currentPosition) >= totalWidth) {
+            currentPosition = 0; // Reset when original slide ends
+          }
+          carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+        }
+        animationId = requestAnimationFrame(moveCarousel);
+      };
+
+      // Start animation
+      const startAnimation = () => {
+        animationPaused = false;
+        cancelAnimationFrame(animationId);
+        moveCarousel();
+      };
+
+      // Pause animation
+      const stopAnimation = () => {
+        animationPaused = true;
+        cancelAnimationFrame(animationId);
+      };
+
+      // Speed up on hold
+      const speedUp = () => {
+        speed = holdSpeed;
+      };
+
+      // Reset speed on release
+      const resetSpeed = () => {
+        speed = normalSpeed;
+      };
+
+      // Arrow Left
+      arrowLeft.addEventListener('mousedown', () => {
+        speedUp();
+        speed = -holdSpeed; // Reverse direction
+      });
+      arrowLeft.addEventListener('mouseup', resetSpeed);
+      arrowLeft.addEventListener('mouseleave', resetSpeed);
+
+      // Arrow Right
+      arrowRight.addEventListener('mousedown', () => {
+        speedUp();
+      });
+      arrowRight.addEventListener('mouseup', resetSpeed);
+      arrowRight.addEventListener('mouseleave', resetSpeed);
+
+      // Event listeners to pause/resume animation
+      carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
+      carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
+
+      // Start the infinite scroll on page load
+      startAnimation();
+    </script>
+    <!-- <script>
+      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
+      const carouselItemsSlide = document.querySelector('.carousel-items-slide');
+      const arrowLeft = document.getElementById('arrowLeft');
+      const arrowRight = document.getElementById('arrowRight');
+
+      // Clone the slide for infinite scrolling
+      const clone = carouselItemsSlide.cloneNode(true);
+      carouselItemsWrapper.appendChild(clone);
+
+      let currentPosition = 0;
+      const itemWidth = 216 + 14; // Width of one carousel item + margin
+      const totalWidth = carouselItemsSlide.offsetWidth; // Total width of the original slide
+      let animationId;
+      let animationPaused = false;
+
+      let speed = 0.6; // Default speed
+      const holdSpeed = 2; // Speed when holding the button
+      let holdInterval;
+
+      // Function to move the carousel
+      const moveCarousel = () => {
+        if (!animationPaused) {
+          currentPosition -= speed; // Adjust speed dynamically
           if (Math.abs(currentPosition) >= totalWidth) {
             currentPosition = 0; // Reset when original slide ends
           }
@@ -475,22 +556,43 @@
       };
 
       // Manual navigation
-      arrowLeft.addEventListener('click', () => {
-        stopAnimation();
-        currentPosition += itemWidth;
-        if (currentPosition > 0) {
-          currentPosition = -totalWidth; // Wrap to the end
-        }
-        carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+      const holdScroll = (direction) => {
+        holdInterval = setInterval(() => {
+          stopAnimation();
+          currentPosition += (direction * itemWidth) / 10; // Adjust hold scroll increment
+          if (currentPosition > 0) currentPosition = -totalWidth; // Wrap to the end
+          if (Math.abs(currentPosition) >= totalWidth) currentPosition = 0; // Wrap to the start
+          carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+        }, 10);
+      };
+
+      const stopHoldScroll = () => clearInterval(holdInterval);
+
+      // Speed control on hold
+      arrowLeft.addEventListener('mousedown', () => {
+        speed = holdSpeed; // Increase speed
+        holdScroll(1); // Scroll left
+      });
+      arrowLeft.addEventListener('mouseup', () => {
+        stopHoldScroll();
+        speed = 0.6; // Reset speed
+      });
+      arrowLeft.addEventListener('mouseleave', () => {
+        stopHoldScroll();
+        speed = 0.6;
       });
 
-      arrowRight.addEventListener('click', () => {
-        stopAnimation();
-        currentPosition -= itemWidth;
-        if (Math.abs(currentPosition) >= totalWidth) {
-          currentPosition = 0; // Wrap to the start
-        }
-        carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+      arrowRight.addEventListener('mousedown', () => {
+        speed = holdSpeed; // Increase speed
+        holdScroll(-1); // Scroll right
+      });
+      arrowRight.addEventListener('mouseup', () => {
+        stopHoldScroll();
+        speed = 0.6; // Reset speed
+      });
+      arrowRight.addEventListener('mouseleave', () => {
+        stopHoldScroll();
+        speed = 0.6;
       });
 
       // Event listeners to pause/resume animation
@@ -499,7 +601,7 @@
 
       // Start the infinite scroll on page load
       startAnimation();
-    </script>
+    </script> -->
     <!-- <script>
       const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper'); // Scrollable wrapper
       const carouselItemsSlides = document.querySelectorAll('.carousel-items-slide');
