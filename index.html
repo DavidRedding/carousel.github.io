@@ -67,7 +67,7 @@
 
       .carousel-item {
         display: inline-block; /* Makes divs behave like inline elements */
-        margin: 0 30px; /* Match the img margin */
+        margin: 0 7px; /* Match the img margin */
         background-size: contain; /* Ensures the image fits within the div */
         background-repeat: no-repeat; /* Avoids tiling */
         background-position: center;
@@ -120,12 +120,12 @@
         .carousel-item {
           flex: 0 0 auto; /* Prevent shrinking */
           scroll-snap-align: center; /* Snap to center */
-          margin: 0 10px; /* Adjust spacing */
+          margin: 0 5px; /* Adjust spacing */
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
-          height: 200px; /* Adjust for smaller screens */
-          width: 120px; /* Adjust for smaller screens */
+          height: 274px; /* Adjust for smaller screens */
+          width: 180px; /* Adjust for smaller screens */
           border: 2px solid black; /* Adjust border size */
           border-radius: 8px;
         }
@@ -160,7 +160,7 @@
       const carouselItems = document.querySelectorAll('.carousel-item');
       carouselItems.forEach((item) => {
         item.addEventListener('click', () => {
-          item.style.border = '10px solid purple';
+          item.style.border = '10px solid orange';
           console.log(`clicked: ${item.style.backgroundImage}`);
         });
       });
