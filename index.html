@@ -70,7 +70,7 @@
 
       .carousel-item {
         display: inline-block; /* Makes divs behave like inline elements */
-        margin: 0 40px; /* Match the img margin */
+        margin: 0 30px; /* Match the img margin */
         background-size: contain; /* Ensures the image fits within the div */
         background-repeat: no-repeat; /* Avoids tiling */
         background-position: center;
@@ -81,6 +81,7 @@
       }
     </style>
   </head>
+
   <body>
     <div class="logos">
       <div class="logos-slide">
@@ -97,6 +98,16 @@
     <script>
       var copy = document.querySelector('.logos-slide').cloneNode(true);
       document.querySelector('.logos').appendChild(copy);
+
+      const carouselItems = document.querySelectorAll('.carousel-item');
+      // Add event listeners to each carousel item
+      carouselItems.forEach((item) => {
+        // On mouse over, change the border
+        item.addEventListener('click', () => {
+          item.style.border = '10px solid green';
+          console.log(`clicked ${item.style} dfd`);
+        });
+      });
     </script>
   </body>
 </html>
