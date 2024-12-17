@@ -27,13 +27,13 @@
 
       .carousel-container {
         overflow: hidden;
-        padding: 60px 0;
+        padding: 0;
         background: #181c1f;
         white-space: nowrap;
         position: relative;
 
-        /* max-width: 1440px;
-      margin: 0 auto; */
+        max-width: 1440px;
+        margin: 0 auto;
       }
 
       .carousel-container:before,
@@ -64,7 +64,7 @@
 
       .carousel-items-slide {
         display: inline-block;
-        animation: 30s slide infinite linear;
+        /* animation: 30s slide infinite linear; */
       }
 
       .carousel-item {
@@ -78,7 +78,19 @@
         width: 216px;
         border-radius: 20px;
         position: relative;
+
+        transition: filter 0.3s ease, box-shadow 0.3s ease;
       }
+
+      .carousel-item:hover {
+        filter: brightness(1.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* .carousel-item:hover {
+    filter: brightness(0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  } */
 
       .item-content {
         display: flex;
@@ -112,6 +124,38 @@
         letter-spacing: -0.449px;
         text-align: left;
       }
+
+      /* New Styles for Navigation Arrows */
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
+
+      .carousel-arrow.left {
+        left: 10px;
+      }
+
+      .carousel-arrow.right {
+        right: 10px;
+      }
+
+      .carousel-arrow:hover {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
       /* Basic styling for button */
       #showVideoButton {
         font-size: 16px;
@@ -212,12 +256,12 @@
 
         .carousel-container:before {
           left: 0;
-          background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+          background: linear-gradient(to left, rgba(24, 28, 31, 0), #181c1f);
         }
 
         .carousel-container:after {
           right: 0;
-          background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+          background: linear-gradient(to right, rgba(24, 28, 31, 0), #181c1f);
         }
 
         .carousel-items-slide {
@@ -246,6 +290,10 @@
 
   <body style="background-color: #181c1f">
     <div class="carousel-container">
+      <!-- Arrows for Manual Control -->
+      <button class="carousel-arrow left" id="arrowLeft">‹</button>
+      <button class="carousel-arrow right" id="arrowRight">›</button>
+
       <div class="carousel-items-wrapper">
         <div class="carousel-items-slide">
           <!-- Erik -->
@@ -386,46 +434,131 @@
     </div>
 
     <script>
-      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper'); // Scrollable wrapper
+      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
       const carouselItemsSlide = document.querySelector('.carousel-items-slide');
+      const arrowLeft = document.getElementById('arrowLeft');
+      const arrowRight = document.getElementById('arrowRight');
+
+      // Clone the slide for infinite scrolling
+      const clone = carouselItemsSlide.cloneNode(true);
+      carouselItemsWrapper.appendChild(clone);
+
+      let currentPosition = 0;
+      const itemWidth = 216 + 14; // Width of one carousel item + margin
+      const totalWidth = carouselItemsSlide.offsetWidth; // Total width of the original slide
+      let animationId;
+      let animationPaused = false;
+
+      // Function to move the carousel
+      const moveCarousel = () => {
+        if (!animationPaused) {
+          currentPosition -= 0.6; // Move left pixel by pixel
+          if (Math.abs(currentPosition) >= totalWidth) {
+            currentPosition = 0; // Reset when original slide ends
+          }
+          carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+        }
+        animationId = requestAnimationFrame(moveCarousel);
+      };
+
+      // Start animation
+      const startAnimation = () => {
+        animationPaused = false;
+        cancelAnimationFrame(animationId);
+        moveCarousel();
+      };
+
+      // Pause animation
+      const stopAnimation = () => {
+        animationPaused = true;
+        cancelAnimationFrame(animationId);
+      };
+
+      // Manual navigation
+      arrowLeft.addEventListener('click', () => {
+        stopAnimation();
+        currentPosition += itemWidth;
+        if (currentPosition > 0) {
+          currentPosition = -totalWidth; // Wrap to the end
+        }
+        carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+      });
+
+      arrowRight.addEventListener('click', () => {
+        stopAnimation();
+        currentPosition -= itemWidth;
+        if (Math.abs(currentPosition) >= totalWidth) {
+          currentPosition = 0; // Wrap to the start
+        }
+        carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+      });
+
+      // Event listeners to pause/resume animation
+      carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
+      carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
+
+      // Start the infinite scroll on page load
+      startAnimation();
+    </script>
+    <!-- <script>
+      const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper'); // Scrollable wrapper
+      const carouselItemsSlides = document.querySelectorAll('.carousel-items-slide');
+      const arrowLeft = document.getElementById('arrowLeft');
+      const arrowRight = document.getElementById('arrowRight');
+
+      let currentPosition = 0;
+      const itemWidth = 216 + 14; // Item width + margin (adjust as needed)
+      const totalItems = document.querySelectorAll('.carousel-item').length;
+      const maxScroll = itemWidth * totalItems;
+
+      let animationStopped = false;
+
+      // Function to stop all animations
+      const stopAnimation = () => {
+        if (!animationStopped) {
+          carouselItemsSlides.forEach((slide) => {
+            slide.style.animation = 'none'; // Stop the animation on all slides
+          });
+          animationStopped = true;
+        }
+      };
+
+      // Manual Scroll Left
+      arrowLeft.addEventListener('click', () => {
+        stopAnimation();
+        currentPosition -= itemWidth;
+        if (currentPosition < 0) currentPosition = maxScroll - itemWidth; // Wrap to end
+        carouselItemsSlides.forEach((slide) => {
+          slide.style.transform = `translateX(-${currentPosition}px)`;
+        });
+      });
+
+      // Manual Scroll Right
+      arrowRight.addEventListener('click', () => {
+        stopAnimation();
+        currentPosition += itemWidth;
+        if (currentPosition >= maxScroll) currentPosition = 0; // Wrap to start
+        carouselItemsSlides.forEach((slide) => {
+          slide.style.transform = `translateX(-${currentPosition}px)`;
+        });
+      });
 
       const videoModal = document.getElementById('videoModal');
       const closeModal = document.getElementById('closeModal');
       const videoIframe = document.getElementById('videoIframe');
 
       // Clone the carousel-items-slide and append it to the wrapper for infinite scrolling
-      const carouselItemsSlideClone = carouselItemsSlide.cloneNode(true);
+      const carouselItemsSlideClone = carouselItemsSlides[0].cloneNode(true);
       carouselItemsWrapper.appendChild(carouselItemsSlideClone);
 
       const carouselItems = document.querySelectorAll('.carousel-item');
 
-      // Add event listeners to each carousel item
-      carouselItems.forEach((item) => {
-        item.addEventListener('click', () => {
-          item.style.border = '10px solid orange';
-          console.log(`clicked: ${item.style.backgroundImage}`);
-        });
-      });
-      // Detect user interaction and stop the animation after 2 seconds
-      let userInteracted = false;
-
-      const stopAnimation = () => {
-        if (!userInteracted) {
-          userInteracted = true;
-
-          setTimeout(() => {
-            carouselItemsSlide.style.animation = 'none';
-            carouselItemsSlideClone.style.animation = 'none';
-            console.log('Animation stopped after user interaction.');
-          }, 2000); // 2 seconds delay after interaction
-        }
-      };
-
       // Add event listeners for touch and scroll events
-      carouselItemsWrapper.addEventListener('touchstart', stopAnimation);
-      carouselItemsWrapper.addEventListener('scroll', stopAnimation);
+      // carouselItemsWrapper.addEventListener('touchstart', stopAnimation);
+      // carouselItemsWrapper.addEventListener('scroll', stopAnimation);
+      // TODO: Consider stopping the animation onCLick, converting to a swipe from there
 
-      // ########## VIDEO FUNCTIONALITY BELOW ##########
+      // ########## VIDEO FUNCTIONALITY START ##########
 
       // Function to close the modal
       function closeVideoModal() {
@@ -454,6 +587,8 @@
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') closeVideoModal();
       });
-    </script>
+
+      // ########## VIDEO FUNCTIONALITY END ##########
+    </script> -->
   </body>
 </html>
