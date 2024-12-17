@@ -123,7 +123,7 @@
       carouselItems.forEach((item) => {
         // On mouse over, change the border
         item.addEventListener('click', () => {
-          item.style.border = '10px solid green';
+          item.style.border = '10px solid red';
           console.log(`clicked ${item.style} dfd`);
         });
       });
@@ -136,7 +136,7 @@
       const stopAnimation = () => {
         if (!userInteracted) {
           userInteracted = true; // Prevent multiple triggers
-          logosSlide.style.animation = 'none'; // Slow down the animation
+          logosSlide.style.animation = 'none !important'; // Slow down the animation
         }
       };
 
