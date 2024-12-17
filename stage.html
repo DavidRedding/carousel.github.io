@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HELLO WORLD</title>
-
+    <!-- AYO! Create a version that you only have to hover over arrow for it to speed up -->
+    <!-- If a modal is open, pause that ish -->
     <style>
       * {
         margin: 0;
@@ -238,6 +239,10 @@
           position: relative; /* Retain positioning */
         }
 
+        .carousel-container::-webkit-scrollbar,
+        .carousel-items-wrapper::-webkit-scrollbar {
+          display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+        }
         .carousel-items-wrapper {
           display: flex;
           gap: 10px; /* Spacing between items */
@@ -245,6 +250,7 @@
           overflow-x: auto;
           -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
           scroll-behavior: smooth; /* Smooth scroll behavior */
+          transform: none !important;
         }
 
         .carousel-items-slide {
@@ -428,103 +434,124 @@
     </div>
 
     <script>
-      if (window.innerWidth > 768) {
-        const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
-        const carouselItemsSlide = document.querySelector('.carousel-items-slide');
-        const arrowLeft = document.getElementById('arrowLeft');
-        const arrowRight = document.getElementById('arrowRight');
-
-        // Clone the slide for infinite scrolling
-        const clone = carouselItemsSlide.cloneNode(true);
-        carouselItemsWrapper.appendChild(clone);
-
-        let currentPosition = 0;
-        const itemWidth = 216 + 14; // Width of one carousel item + margin
-        const totalWidth = carouselItemsSlide.offsetWidth; // Total width of the original slide
-        let animationId;
-        let animationPaused = false;
-
-        let speed = 0.9; // Default speed
-        const normalSpeed = 0.9;
-        const holdSpeed = 3; // Faster speed when holding
-
-        // Function to move the carousel
-        const moveCarousel = () => {
-          if (!animationPaused) {
-            currentPosition -= speed; // Use the dynamic speed
-            if (Math.abs(currentPosition) >= totalWidth) {
-              currentPosition = 0; // Reset when original slide ends
-            }
-            carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
-          }
-          animationId = requestAnimationFrame(moveCarousel);
-        };
-
-        // Start animation
-        const startAnimation = () => {
-          animationPaused = false;
-          cancelAnimationFrame(animationId);
-          moveCarousel();
-        };
-
-        // Pause animation
-        const stopAnimation = () => {
-          animationPaused = true;
-          cancelAnimationFrame(animationId);
-        };
-
-        // Speed up on hold
-        const speedUp = () => {
-          speed = holdSpeed;
-        };
-
-        // Reset speed on release
-        const resetSpeed = () => {
-          speed = normalSpeed;
-        };
-
-        // Arrow Left
-        arrowLeft.addEventListener('mousedown', () => {
-          speedUp();
-          speed = -holdSpeed; // Reverse direction
-        });
-        arrowLeft.addEventListener('mouseup', resetSpeed);
-        arrowLeft.addEventListener('mouseleave', resetSpeed);
-
-        // Arrow Right
-        arrowRight.addEventListener('mousedown', () => {
-          speedUp();
-        });
-        arrowRight.addEventListener('mouseup', resetSpeed);
-        arrowRight.addEventListener('mouseleave', resetSpeed);
-
-        // Event listeners to pause/resume animation
-        carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
-        carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
-
-        // Start the infinite scroll on page load
-        startAnimation();
-      }
-    </script>
-
-    <!-- <script>
-
+      let animationId;
+      let initialized = false; // To prevent re-initialization
       const videoModal = document.getElementById('videoModal');
       const closeModal = document.getElementById('closeModal');
       const videoIframe = document.getElementById('videoIframe');
 
-      // Clone the carousel-items-slide and append it to the wrapper for infinite scrolling
-      const carouselItemsSlideClone = carouselItemsSlides[0].cloneNode(true);
-      carouselItemsWrapper.appendChild(carouselItemsSlideClone);
+      const initCarousel = () => {
+        const carouselItemsWrapper = document.querySelector('.carousel-items-wrapper');
+        const carouselItemsSlide = document.querySelector('.carousel-items-slide');
+        if (window.innerWidth > 768 && !initialized) {
+          // Initialize carousel logic
+          initialized = true; // Mark as initialized
 
-      const carouselItems = document.querySelectorAll('.carousel-item');
+          const arrowLeft = document.getElementById('arrowLeft');
+          const arrowRight = document.getElementById('arrowRight');
 
-      // Add event listeners for touch and scroll events
-      // carouselItemsWrapper.addEventListener('touchstart', stopAnimation);
-      // carouselItemsWrapper.addEventListener('scroll', stopAnimation);
-      // TODO: Consider stopping the animation onCLick, converting to a swipe from there
+          // Clone the slide for infinite scrolling
+          const clone = carouselItemsSlide.cloneNode(true);
+          carouselItemsWrapper.appendChild(clone);
 
-      // ########## VIDEO FUNCTIONALITY START ##########
+          let currentPosition = 0;
+          const itemWidth = 216 + 14;
+          const totalWidth = carouselItemsSlide.offsetWidth;
+          let animationPaused = false;
+
+          let speed = 0.9;
+          const normalSpeed = 0.9;
+          const holdSpeed = 3;
+
+          const moveCarousel = () => {
+            if (!animationPaused) {
+              currentPosition -= speed;
+              if (Math.abs(currentPosition) >= totalWidth) currentPosition = 0;
+              carouselItemsWrapper.style.transform = `translateX(${currentPosition}px)`;
+            }
+            animationId = requestAnimationFrame(moveCarousel);
+          };
+
+          const startAnimation = () => {
+            animationPaused = false;
+            cancelAnimationFrame(animationId);
+            moveCarousel();
+          };
+
+          const stopAnimation = () => {
+            animationPaused = true;
+            cancelAnimationFrame(animationId);
+          };
+
+          const speedUp = () => {
+            speed = holdSpeed;
+          };
+          const resetSpeed = () => {
+            speed = normalSpeed;
+          };
+
+          // Arrow Left
+          arrowLeft.addEventListener('mousedown', () => {
+            speed = -holdSpeed;
+          });
+          arrowLeft.addEventListener('mouseup', resetSpeed);
+          arrowLeft.addEventListener('mouseleave', resetSpeed);
+
+          // Arrow Right
+          arrowRight.addEventListener('mousedown', speedUp);
+          arrowRight.addEventListener('mouseup', resetSpeed);
+          arrowRight.addEventListener('mouseleave', resetSpeed);
+
+          // Pause/resume animation
+          carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
+          carouselItemsWrapper.addEventListener('mouseleave', startAnimation);
+
+          startAnimation();
+          // VIDEO MODAL FUNCTIONALITY FOR DESKTOP
+          attachVideoListeners();
+        } else if (window.innerWidth <= 768 && initialized) {
+          // Clean up carousel logic when resizing to mobile
+          cancelAnimationFrame(animationId); // Stop animation
+          carouselItemsWrapper.style.transform = ''; // Reset transformation
+          initialized = false; // Mark as uninitialized
+          console.log('Carousel logic removed for mobile.');
+        } else if (window.innerWidth <= 768) {
+          // VIDEO MODAL FUNCTIONALITY FOR MOBILE
+          attachVideoListeners();
+        }
+      };
+
+      // Function to attach video listeners to carousel items
+      function attachVideoListeners() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+
+        // Remove existing listeners first
+        carouselItems.forEach((item) => {
+          item.replaceWith(item.cloneNode(true));
+        });
+
+        // Add click event listeners
+        document.querySelectorAll('.carousel-item').forEach((item) => {
+          item.addEventListener('click', () => {
+            console.log('clicked');
+            const videoUrl = item.getAttribute('data-video-url');
+            if (videoUrl) {
+              videoIframe.src = `${videoUrl}?autoplay=1`;
+              videoModal.style.display = 'flex';
+              pauseAnimationOnModalOpen(); // Pause animation when modal opens
+            }
+          });
+        });
+      }
+
+      // Function to pause animation when modal is open
+      function pauseAnimationOnModalOpen() {
+        setTimeout(() => {
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+          }
+        }, 300);
+      }
 
       // Function to close the modal
       function closeVideoModal() {
@@ -532,29 +559,19 @@
         videoIframe.src = ''; // Stop the video
       }
 
-      // Event listener for carousel items
-      carouselItems.forEach((item) => {
-        item.addEventListener('click', () => {
-          console.log('clicked');
-          const videoUrl = item.getAttribute('data-video-url'); // Get video URL
-          if (videoUrl) {
-            videoIframe.src = `${videoUrl}?autoplay=1`; // Set iframe src with autoplay
-            videoModal.style.display = 'flex'; // Show modal
-          }
-        });
-      });
-
       // Event listeners for closing modal
       closeModal.addEventListener('click', closeVideoModal);
       videoModal.addEventListener('click', (event) => {
         if (event.target === videoModal) closeVideoModal();
       });
-
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') closeVideoModal();
       });
+      // Run on page load
+      initCarousel();
 
-      // ########## VIDEO FUNCTIONALITY END ##########
-    </script> -->
+      // Listen for window resize
+      window.addEventListener('resize', initCarousel);
+    </script>
   </body>
 </html>
