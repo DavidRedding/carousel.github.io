@@ -80,22 +80,54 @@
 
       @media (max-width: 768px) {
         .logos {
+          overflow: hidden; /* Hide overflow outside container */
+          position: relative; /* Keep pseudo-elements fixed */
+        }
+
+        .logos-wrapper {
           overflow-x: auto; /* Enable horizontal scrolling */
-          display: flex; /* Use flexbox to align items */
-          scroll-snap-type: x mandatory; /* Enable horizontal scroll snap */
+          display: flex; /* Flexbox layout */
+          scroll-snap-type: x mandatory; /* Smooth snap scrolling */
           -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
-          scroll-behavior: smooth; /* Smooth scrolling */
+          scroll-behavior: smooth; /* Smooth scroll behavior */
+        }
+
+        .logos:before,
+        .logos:after {
+          position: absolute; /* Fixed inside the container */
+          top: 0;
+          width: 50px; /* Smaller gradient for mobile */
+          height: 100%;
+          content: '';
+          z-index: 2;
+          pointer-events: none; /* Allow interaction with carousel */
+        }
+
+        .logos:before {
+          left: 0;
+          background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+        }
+
+        .logos:after {
+          right: 0;
+          background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
         }
 
         .logos-slide {
-          display: flex; /* Align carousel items horizontally */
-          /* animation: none !important; Disable animation on mobile */
+          display: flex; /* Flexbox layout for items */
         }
 
         .carousel-item {
-          scroll-snap-align: center; /* Snap items to center */
           flex: 0 0 auto; /* Prevent shrinking */
-          margin: 0 10px; /* Adjust spacing for smaller screens */
+          scroll-snap-align: center; /* Snap to center */
+          margin: 0 10px; /* Adjust spacing */
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          height: 200px; /* Adjust for smaller screens */
+          width: 120px; /* Adjust for smaller screens */
+          border: 2px solid black; /* Adjust border size */
+          border-radius: 8px;
         }
       }
     </style>
@@ -103,46 +135,54 @@
 
   <body>
     <div class="logos">
-      <div class="logos-slide">
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/3m.svg')"></div>
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/barstool-store.svg')"></div>
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/budweiser.svg')"></div>
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/buzzfeed.svg')"></div>
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/forbes.svg')"></div>
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/menshealth.svg')"></div>
-        <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/mrbeast.svg')"></div>
+      <div class="logos-wrapper">
+        <div class="logos-slide">
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/3m.svg')"></div>
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/barstool-store.svg')"></div>
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/budweiser.svg')"></div>
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/buzzfeed.svg')"></div>
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/forbes.svg')"></div>
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/menshealth.svg')"></div>
+          <div class="carousel-item" style="background-image: url('https://raw.githubusercontent.com/Coding-with-Robby/infinite-logo-carousel/adb1f11a3736ae0b1df43d48bbbb7c1339a77b86/logos/mrbeast.svg')"></div>
+        </div>
       </div>
     </div>
 
     <script>
-      var copy = document.querySelector('.logos-slide').cloneNode(true);
-      document.querySelector('.logos').appendChild(copy);
+      const logosContainer = document.querySelector('.logos-wrapper'); // Scrollable wrapper
+      const logosSlide = document.querySelector('.logos-slide');
 
-      const carouselItems = document.querySelectorAll('.carousel-item');
+      // Clone the logos-slide and append it to the wrapper for infinite scrolling
+      const logosSlideClone = logosSlide.cloneNode(true);
+      logosContainer.appendChild(logosSlideClone);
+
       // Add event listeners to each carousel item
+      const carouselItems = document.querySelectorAll('.carousel-item');
       carouselItems.forEach((item) => {
-        // On mouse over, change the border
         item.addEventListener('click', () => {
           item.style.border = '10px solid red';
-          console.log(`clicked ${item.style} dfd`);
+          console.log(`clicked: ${item.style.backgroundImage}`);
         });
       });
 
-      const logosSlide = document.querySelector('.logos-slide');
-
-      // Detect touch or scroll interactions
+      // Detect user interaction and stop the animation after 2 seconds
       let userInteracted = false;
 
       const stopAnimation = () => {
         if (!userInteracted) {
-          userInteracted = true; // Prevent multiple triggers
-          logosSlide.style.animation = 'none !important'; // Slow down the animation
+          userInteracted = true;
+
+          setTimeout(() => {
+            logosSlide.style.animation = 'none';
+            logosSlideClone.style.animation = 'none';
+            console.log('Animation stopped after user interaction.');
+          }, 2000); // 2 seconds delay after interaction
         }
       };
 
-      // Add event listeners for mobile touch and scroll events
-      document.querySelector('.logos').addEventListener('touchstart', stopAnimation);
-      document.querySelector('.logos').addEventListener('scroll', stopAnimation);
+      // Add event listeners for touch and scroll events
+      logosContainer.addEventListener('touchstart', stopAnimation);
+      logosContainer.addEventListener('scroll', stopAnimation);
     </script>
   </body>
 </html>
