@@ -141,6 +141,8 @@
         opacity: 100%;
 
         border: white 2px solid;
+
+        transition: background 0.3s ease, color 0.3s ease; /* Smooth transition */
         /* this line */
         opacity: 100%;
 
@@ -149,11 +151,18 @@
         /* border-radius: none; */
       }
 
+      .carousel-arrow:hover {
+        background: rgba(255, 255, 255, 1); /* Fully opaque white background on hover */
+        color: #181c1f; /* Ensure the arrow remains black on hover */
+      }
+
       .carousel-arrows-container {
         display: flex;
         justify-content: flex-end;
         max-width: 1440px;
         margin: 30px auto 0 auto;
+
+        padding-right: 40px;
       }
       .carousel-arrows-container > div {
         display: flex;
@@ -166,11 +175,6 @@
 
       .carousel-arrow.right {
         right: 10px;
-      }
-
-      .carousel-arrow:hover {
-        background: rgba(255, 255, 255, 1); /* Fully opaque white background on hover */
-        color: #181c1f; /* Ensure the arrow remains black on hover */
       }
 
       /* Basic styling for button */
