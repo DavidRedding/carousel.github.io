@@ -126,12 +126,9 @@
 
       /* New Styles for Navigation Arrows */
       .carousel-arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
         width: 40px;
         height: 40px;
-        background: rgba(0, 0, 0, 0.5);
+        background: #181c1f;
         color: white;
         border: none;
         cursor: pointer;
@@ -141,7 +138,9 @@
         align-items: center;
         z-index: 10;
         border-radius: 50%;
+        opacity: 100%;
 
+        border: white 2px solid;
         /* this line */
         opacity: 100%;
 
@@ -150,7 +149,18 @@
         /* border-radius: none; */
       }
 
-      .carousel-arrow.left {
+      .carousel-arrows-container {
+        display: flex;
+        justify-content: flex-end;
+        max-width: 1440px;
+        margin: 30px auto 0 auto;
+      }
+      .carousel-arrows-container > div {
+        display: flex;
+        gap: 60px;
+      }
+
+      .carousel .carousel-arrow.left {
         left: 10px;
       }
 
@@ -159,7 +169,8 @@
       }
 
       .carousel-arrow:hover {
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(255, 255, 255, 1); /* Fully opaque white background on hover */
+        color: #181c1f; /* Ensure the arrow remains black on hover */
       }
 
       /* Basic styling for button */
@@ -299,10 +310,6 @@
   </head>
   <body>
     <div class="carousel-container">
-      <!-- Arrows for Manual Control -->
-      <button class="carousel-arrow left" id="arrowLeft">‹</button>
-      <button class="carousel-arrow right" id="arrowRight">›</button>
-
       <div class="carousel-items-wrapper">
         <div class="carousel-items-slide">
           <!-- Yolanda -->
@@ -584,6 +591,14 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="carousel-arrows-container">
+      <!-- Arrows for Manual Control -->
+      <div>
+        <button class="carousel-arrow left" id="arrowLeft">‹</button>
+        <button class="carousel-arrow right" id="arrowRight">›</button>
       </div>
     </div>
 
