@@ -758,11 +758,26 @@
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') closeVideoModal();
       });
+
+      const updateHeroVideoSource = () => {
+        if (window.innerWidth <= 768) {
+          heroVideoSource.src = 'https://example.com/path/to/mobile-video.mp4'; // Replace with your mobile video URL
+        } else {
+          heroVideoSource.src = 'https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/motion-and-video/Reputation_Campaign_Header_1500x615.mp4';
+        }
+        // Reload the video to apply the new source
+        const heroVideo = document.getElementById('heroVideo');
+        heroVideo.load();
+      };
+
+      // Run on page load
+      updateHeroVideoSource();
       // Run on page load
       initCarousel();
 
       // Listen for window resize
       window.addEventListener('resize', initCarousel);
+      window.addEventListener('resize', updateHeroVideoSource);
     </script>
   </body>
 </html>
