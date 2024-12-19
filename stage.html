@@ -759,6 +759,8 @@
         if (event.key === 'Escape') closeVideoModal();
       });
 
+      const heroVideoSource = document.getElementById('heroVideoSource');
+
       const updateHeroVideoSource = () => {
         if (window.innerWidth <= 768) {
           heroVideoSource.src = 'https://example.com/path/to/mobile-video.mp4'; // Replace with your mobile video URL
