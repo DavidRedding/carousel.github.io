@@ -310,6 +310,13 @@
           display: none;
         }
       }
+
+      @media (max-width: 500px) {
+        #closeModal {
+          top: -6px;
+          right: 26px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -349,7 +356,7 @@
           <!-- Chassity -->
           <div
             class="carousel-item"
-            data-video-url="https://www.youtube.com/embed/W6rp4pJDl8I?si=FObLqjPHnWDSOmtO"
+            data-video-url="https://fast.wistia.net/embed/iframe/gjxw0s0uae?autoPlay=false&playerColor=000000"
             style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Chassity.png')"
             data-ui-action="clicked"
             data-ui-object-detail="mtp: chassity's video"
@@ -610,9 +617,12 @@
     <div id="videoModal">
       <div id="videoContainer">
         <span id="closeModal">×</span>
-        <iframe id="videoIframe" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <!-- <iframe id="videoIframe" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+        <iframe id="videoIframe" src="" title="Video Title" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" width="640" height="360"></iframe>
       </div>
     </div>
+
+    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
 
     <script>
       let animationId;
@@ -721,7 +731,7 @@
             console.log('clicked');
             const videoUrl = item.getAttribute('data-video-url');
             if (videoUrl) {
-              videoIframe.src = `${videoUrl}?autoplay=1`;
+              videoIframe.src = `${videoUrl}`;
               videoModal.style.display = 'flex';
               pauseAnimationOnModalOpen(); // Pause animation when modal opens
             }
