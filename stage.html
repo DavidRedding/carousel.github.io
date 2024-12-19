@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HELLO WORLD</title>
-    <!-- AYO! Create a version that you only have to hover over arrow for it to speed up -->
-    <!-- If a modal is open, pause that ish -->
     <style>
       * {
         margin: 0;
@@ -75,8 +73,8 @@
         background-repeat: no-repeat; /* Avoids tiling */
         background-position: center;
         cursor: pointer;
-        height: 366px;
-        width: 240px;
+        height: 311px;
+        width: 260px;
         border-radius: 20px;
         position: relative;
 
@@ -89,9 +87,9 @@
       }
 
       /* .carousel-item:hover {
-    filter: brightness(0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  } */
+        filter: brightness(0.8);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      } */
 
       .item-content {
         display: flex;
@@ -136,13 +134,20 @@
         background: rgba(0, 0, 0, 0.5);
         color: white;
         border: none;
-        border-radius: 50%;
         cursor: pointer;
         font-size: 24px;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 10;
+        border-radius: 50%;
+
+        /* this line */
+        opacity: 0%;
+
+        /* width: 7%;
+        height: 100%; */
+        /* border-radius: none; */
       }
 
       .carousel-arrow.left {
@@ -239,6 +244,11 @@
           position: relative; /* Retain positioning */
         }
 
+        .carousel-item:hover {
+          filter: none; /* Remove brightness adjustment */
+          box-shadow: none; /* Remove shadow */
+        }
+
         .carousel-container::-webkit-scrollbar,
         .carousel-items-wrapper::-webkit-scrollbar {
           display: none; /* Hide scrollbar for Chrome, Safari, Edge */
@@ -287,8 +297,7 @@
       }
     </style>
   </head>
-
-  <body style="background-color: #181c1f">
+  <body>
     <div class="carousel-container">
       <!-- Arrows for Manual Control -->
       <button class="carousel-arrow left" id="arrowLeft">‹</button>
@@ -296,33 +305,21 @@
 
       <div class="carousel-items-wrapper">
         <div class="carousel-items-slide">
-          <!-- Erik -->
-          <div class="carousel-item" data-video-url="https://www.youtube.com/embed/6Gjo3vaVQcQ?si=Obzjx626s2mSTC5e" style="background: #15224b">
+          <!-- Yolanda -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/uGXLX46iHco?si=LjI-na8kPQ8N0xdv"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Yolanda.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: yolanda's video"
+            data-wa-link="mtp-yolanda"
+            data-testid="button"
+            data-tracking="button"
+          >
             <div class="item-content">
               <div class="name">
-                <h5>Meet Erik</h5>
-                <h6>TurboTax Expert <br />8 years</h6>
-              </div>
-              <div class="play">
-                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
-                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                  <path
-                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
-                    stroke="white"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Timothy -->
-          <div class="carousel-item" data-video-url="https://www.youtube.com/embed/NsxkpAgJx0o?si=GkjW297qpmWTuNY-" style="background: #243b83">
-            <div class="item-content">
-              <div class="name">
-                <h5>Meet Timothy</h5>
-                <h6>Independent Pro <br />14 years</h6>
+                <h5>Meet Yolanda</h5>
+                <h6>TurboTax Verified Pro</h6>
               </div>
               <div class="play">
                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
@@ -339,53 +336,20 @@
           </div>
 
           <!-- Chassity -->
-          <div class="carousel-item" data-video-url="https://www.youtube.com/embed/xVK55V52sIA?si=L9uONfoDAlfktA0L" style="background: #3454bb">
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/W6rp4pJDl8I?si=FObLqjPHnWDSOmtO"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Chassity.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: chassity's video"
+            data-wa-link="mtp-chassity"
+            data-testid="button"
+            data-tracking="button"
+          >
             <div class="item-content">
               <div class="name">
                 <h5>Meet Chassity</h5>
-                <h6>TurboTax Verified Pro <br />8 years</h6>
-              </div>
-              <div class="play">
-                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
-                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                  <path
-                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
-                    stroke="white"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Christina -->
-          <div class="carousel-item" data-video-url="https://www.youtube.com/embed/rwXqxrJpet4?si=QI1TjwU-V5f1W4A2" style="background: #7187cf">
-            <div class="item-content">
-              <div class="name">
-                <h5>Meet Christina</h5>
-                <h6>Quickbooks Live Expert <br />22 years</h6>
-              </div>
-              <div class="play">
-                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
-                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                  <path
-                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
-                    stroke="white"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Lilia -->
-          <div class="carousel-item" data-video-url="https://www.youtube.com/embed/V80rrtigmu0?si=Vj3NXxJvdpLKuONH" style="background: #aebbe4">
-            <div class="item-content">
-              <div class="name">
-                <h5>Meet Lilia</h5>
-                <h6>TurboTax Expert <br />4 years</h6>
+                <h6>TurboTax Verified Pro</h6>
               </div>
               <div class="play">
                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
@@ -402,11 +366,209 @@
           </div>
 
           <!-- Gordon -->
-          <div class="carousel-item" data-video-url="https://www.youtube.com/embed/z-JHBUPL3fc?si=fmMXzakY5pxnOJsh" style="background: #d6ddf1">
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/Yk1G_YT5Ey0?si=185wnr18dtDw-MNKL"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Gordon.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: gordon's video"
+            data-wa-link="mtp-gordon"
+            data-testid="button"
+            data-tracking="button"
+          >
             <div class="item-content">
               <div class="name">
                 <h5>Meet Gordon</h5>
-                <h6>Quickbooks Live Expert <br />19 years</h6>
+                <h6>QuickBooks Live Expert</h6>
+              </div>
+              <div class="play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lilia -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/Agk1X4_jDrQ?si=DkK7tRY58Uyfh8Au"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Lilia.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: lilia's video"
+            data-wa-link="mtp-lilia"
+            data-testid="button"
+            data-tracking="button"
+          >
+            <div class="item-content">
+              <div class="name">
+                <h5>Meet Lilia</h5>
+                <h6>TurboTax Live Expert</h6>
+              </div>
+              <div class="play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Michelle -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/OXvEF9zvfp0?si=00Z68iYHnQ2Kz9bj"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Michelle.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: michelle's video"
+            data-wa-link="mtp-michelle"
+            data-testid="button"
+            data-tracking="button"
+          >
+            <div class="item-content">
+              <div class="name">
+                <h5>Meet Michelle</h5>
+                <h6>TurboTax Live Expert</h6>
+              </div>
+              <div class="play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Eric -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/YZHbsjdiEgA?si=S-ec2lwf7hhnyVSj"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Eric.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: eric's video"
+            data-wa-link="mtp-eric"
+            data-testid="button"
+            data-tracking="button"
+          >
+            <div class="item-content">
+              <div class="name">
+                <h5>Meet Eric</h5>
+                <h6>TurboTax Live Expert</h6>
+              </div>
+              <div class="play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kristin -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/vwD87StMgeU?si=hGxhHCw0-NlKmrpO"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Kristin.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: kristin's video"
+            data-wa-link="mtp-kristin"
+            data-testid="button"
+            data-tracking="button"
+          >
+            <div class="item-content">
+              <div class="name">
+                <h5>Meet Kristin</h5>
+                <h6>
+                  Independent Tax & Accounting <br />
+                  Firm Owner
+                </h6>
+              </div>
+              <div class="play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timothy -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/dW8UdhKf2Kg?si=TZoqC9c_rd0jcbzQ"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Tim.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: timothy's video"
+            data-wa-link="mtp-timothy"
+            data-testid="button"
+            data-tracking="button"
+          >
+            <div class="item-content">
+              <div class="name">
+                <h5>Meet Timothy</h5>
+                <h6>
+                  Independent Tax & Accounting <br />
+                  Firm Owner
+                </h6>
+              </div>
+              <div class="play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <path d="M15.8218 29.0793C23.5038 29.0793 29.7311 22.8519 29.7311 15.17C29.7311 7.48814 23.5038 1.26074 15.8218 1.26074C8.13999 1.26074 1.9126 7.48814 1.9126 15.17C1.9126 22.8519 8.13999 29.0793 15.8218 29.0793Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.9715 10.2672C12.861 10.1876 12.7293 10.1426 12.5932 10.1379C12.457 10.1331 12.3226 10.1689 12.2068 10.2407C12.091 10.3124 11.9991 10.4169 11.9428 10.5409C11.8864 10.6649 11.8681 10.8029 11.8902 10.9373V19.4037C11.8684 19.5381 11.8869 19.6759 11.9434 19.7996C11.9999 19.9235 12.0918 20.0277 12.2075 20.0993C12.3232 20.1709 12.4576 20.2066 12.5936 20.2018C12.7295 20.1971 12.8611 20.1521 12.9715 20.0726L21.6945 15.7111C22.2884 15.4136 22.2884 14.9274 21.6945 14.6298L12.9715 10.2672Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Christina -->
+          <div
+            class="carousel-item"
+            data-video-url="https://www.youtube.com/embed/K6hr-sKR0jw?si=fMC6rXTz_23-T4_c"
+            style="background-image: url('https://digitalasset.intuit.com/render/content/dam/intuit/pcg/en_us/Tax2024/photo/reputation-images/Christina.png')"
+            data-ui-action="clicked"
+            data-ui-object-detail="mtp: christina's video"
+            data-wa-link="mtp-christina"
+            data-testid="button"
+            data-tracking="button"
+          >
+            <div class="item-content">
+              <div class="name">
+                <h5>Meet Christina</h5>
+                <h6>
+                  Independent Tax & Accounting <br />
+                  Firm Owner
+                </h6>
               </div>
               <div class="play">
                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
@@ -490,17 +652,21 @@
             speed = normalSpeed;
           };
 
-          // Arrow Left
-          arrowLeft.addEventListener('mousedown', () => {
-            speed = -holdSpeed;
+          // Arrow Left - Hover
+          arrowLeft.addEventListener('mouseenter', () => {
+            speed = -holdSpeed; // Reverse direction at fast speed
           });
-          arrowLeft.addEventListener('mouseup', resetSpeed);
-          arrowLeft.addEventListener('mouseleave', resetSpeed);
+          arrowLeft.addEventListener('mouseleave', () => {
+            speed = normalSpeed; // Reset to normal speed
+          });
 
-          // Arrow Right
-          arrowRight.addEventListener('mousedown', speedUp);
-          arrowRight.addEventListener('mouseup', resetSpeed);
-          arrowRight.addEventListener('mouseleave', resetSpeed);
+          // Arrow Right - Hover
+          arrowRight.addEventListener('mouseenter', () => {
+            speed = holdSpeed; // Move forward at fast speed
+          });
+          arrowRight.addEventListener('mouseleave', () => {
+            speed = normalSpeed; // Reset to normal speed
+          });
 
           // Pause/resume animation
           carouselItemsWrapper.addEventListener('mouseenter', stopAnimation);
